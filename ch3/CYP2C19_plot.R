@@ -223,23 +223,6 @@ require(survival)
 fit = survdiff(Surv(DEATH.1y_Day, CV_DEATH.1y==1) ~ gCYP2C19, dat27)
 fit 
 
-# survminer 패키지 설치 후 실행
-require(survminer)
-ggsurv = ggsurvplot(
-  fit,
-  data = dat27,
-  risk.table = TRUE,  # risk table 표시여부 
-  conf.int = T,   # confidence interval 표시여부 
-  xlim = c(0,360),  # X축 범위
-  ylim = c(0,0.02),  # Y축 범위
-  xlab = "Time (Day)", # X축 이름 
-  break.time.by = 30,  # X축 간격 
-  risk.table.y.text = F, # risk table의 Y축 라벨표시 여부 
-  font.tickslab = c(14, "plain", "black"), # 축 값의 font 설정 
-  tables.theme = theme_cleantable(),  #테이블 테마설정
-  fun = "event"  # "event" - cumulative event로 설정 
-) 
-ggsurv
 
 # Cox proportional hazard regression model
 require(survival)
@@ -258,7 +241,7 @@ summary(CoxStep)
 dat28 <- dat27
 mytable(CV_DEATH ~ VERI_PRU, data=dat28)
 
-quantile(dat28$VERI_PRU, na.rm=T)   # na.rm = T: NA를 제외하고 연산 
+quantile(dat28$VERI_PRU, na.rm=T) 
 
 dat28$gPRU <- rank2group(dat28$VERI_PRU, 4)
 mytable(gPRU ~ CV_DEATH, data = dat28)
